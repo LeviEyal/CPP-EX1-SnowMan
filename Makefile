@@ -9,6 +9,9 @@ OBJECTS=snowman.o
 run: demo
 	./$^
 
+runTest: test
+	./$^
+
 demo: Demo.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o demo
 

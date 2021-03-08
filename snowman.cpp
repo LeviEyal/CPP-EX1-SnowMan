@@ -1,35 +1,55 @@
 #include <iostream>
+#include <vector>
+#include <stdexcept>
 #include "snowman.hpp"
 
 using namespace std;
+const int validInputNumber = 8;
+enum parts
+{
+    head, leftArm, leftEye, nose, rightEye, rightArm, torso, base 
+};
 
-#define toDigit(c) (c-'0')
+const vector<string> H = {"       \n _===_ ", "  ___  \n ..... ", "   _   \n  /_\\  ", "  ___  \n (_*_) "};
+const vector<string> N = {",", ".", "_", " "};
+const vector<string> L = {".", "o", "O", "-"};
+const vector<string> R = {".", "o", "O", "-"};
+const vector<string> X1 = {" ", "\\", " ", " "};
+const vector<string> X2 = {"<", " ", "/", " "};
+const vector<string> Y1 = {" ", "/", " ", " "};
+const vector<string> Y2 = {">", " ", "\\", " "};
+const vector<string> T = {" : ", "] [", "> <", "   "};
+const vector<string> B = {" : ", "\" \"", "___", "   "};
 
-const string H[] = {"", "      \n _===_", "  ___  \n ..... ", "   _   \n  /_\\  ", "  ___  \n (_*_) "};
-const string N[] = {"", ",", ".", "_", " "};
-const string L[] = {"", ".", "o", "O", "-"};
-const string R[] = {"", ".", "o", "O", "-"};
-const string X1[] = {"", " ", "\\", " ", " "};
-const string X2[] = {"", "<", " ", "/", " "};
-const string Y1[] = {"", " ", "/", " ", " "};
-const string Y2[] = {"", ">", " ", "\\", " "};
-const string T[] = {"", " : ", "] [", "> <", "   "};
-const string B[] = {"", " : ", "" "", "___", "   "};
+bool inputCheck(string n){
+    if(n.size() != validInputNumber){
+        return false;
+    } 
+    for (int i = 0; i < n.size(); i++){
+        if(n[i] < '1' || n[i] > '4'){
+            return false;
+        }
+    }
+    return true;
+}
 
-/*
-In the format:
-    HNLRXYTB
-    01234567
-*/
+int toDigit(char c){
+    return (c-'0')-1; 
+}
+
 namespace ariel{
-	string snowman(long num){
+	string snowman(int num){
+        string snowman;
         string n = to_string(num);
-        cout << n << endl;
-        string ans;
-        ans += H[toDigit(n[0])] + "\n";
-        ans += X1[toDigit(n[4])] + "(" + L[toDigit(n[2])]+ N[toDigit(n[1])]+ R[toDigit(n[3])] + ")" + Y1[toDigit(n[5])] + "\n";
-        ans += X2[toDigit(n[4])] + "(" + T[toDigit(n[6])] + ")" + Y2[toDigit(n[5])] + "\n";
-        ans += " (" + B[toDigit(n[7])] + ") \n";
-        return ans;
+        if(!inputCheck(n)){
+            throw invalid_argument{"The input number must have 8 digits range from 1 to 4!\n"};
+        } 
+
+        snowman += H.at(toDigit(n[head])) + "\n";
+        snowman += X1.at(toDigit(n[rightEye])) + "(" + L.at(toDigit(n[leftEye]));
+        snowman += N.at(toDigit(n[leftArm]))+ R.at(toDigit(n[nose])) + ")" + Y1.at(toDigit(n[rightArm])) + "\n";
+        snowman += X2.at(toDigit(n[rightEye])) + "(" + T.at(toDigit(n[torso])) + ")" + Y2.at(toDigit(n[rightArm])) + "\n";
+        snowman += " (" + B.at(toDigit(n[base])) + ") ";
+        return snowman;
     }
 };
