@@ -1,71 +1,154 @@
+/************************************************************************************
+ * Test units for for testing snowman.cpp
+ *
+ * AUTHORS: Eyal Levi
+ * https://github.com/LeviEyal
+ * Date: 2021-03
+ ***********************************************************************************/
+
+#include <string>
+#include <algorithm>
+
 #include "doctest.h"
 #include "snowman.hpp"
-#include <string>
-#include <vector>
 
 using namespace ariel;
+using namespace std; 
+
+/**
+ * Returns the input string without the whitespace characters: space, newline and tab.
+ * Requires std=c++2a.
+ */
+string nospaces(string input) {
+	std::erase(input, ' ');
+	std::erase(input, '\t');
+	std::erase(input, '\n');
+	std::erase(input, '\r');
+	return input;
+}
 
 TEST_CASE("number digits out of range"){
-    CHECK_THROWS(snowman(18273572));
-    CHECK_THROWS(snowman(11111119));
+    CHECK_THROWS(snowman(51111111));
+    CHECK_THROWS(snowman(15111111));
+    CHECK_THROWS(snowman(11511111));
+    CHECK_THROWS(snowman(11151111));
+    CHECK_THROWS(snowman(11115111));
+    CHECK_THROWS(snowman(11111511));
+    CHECK_THROWS(snowman(11111151));
+    CHECK_THROWS(snowman(11111115));
     CHECK_THROWS(snowman(11111110));
-    CHECK_THROWS(snowman(12532111));
-    CHECK_THROWS(snowman(29211234));
+    CHECK_THROWS(snowman(11111101));
+    CHECK_THROWS(snowman(11111011));
+    CHECK_THROWS(snowman(11110111));
+    CHECK_THROWS(snowman(11101111));
+    CHECK_THROWS(snowman(11011111));
+    CHECK_THROWS(snowman(10111111));
 }
 
 TEST_CASE("Input number too small"){
+    CHECK_THROWS(snowman(1));
+    CHECK_THROWS(snowman(11));
+    CHECK_THROWS(snowman(111));
+    CHECK_THROWS(snowman(1111));
+    CHECK_THROWS(snowman(11111));
+    CHECK_THROWS(snowman(111111));
+    CHECK_THROWS(snowman(1111111));
     CHECK_THROWS(snowman(2321435));
     CHECK_THROWS(snowman(2314321));
     CHECK_THROWS(snowman(1234));
-    CHECK_THROWS(snowman(1));
+}
+
+TEST_CASE("Input negative number"){
+    CHECK_THROWS(snowman(-11111111));
+    CHECK_THROWS(snowman(-22222222));
+    CHECK_THROWS(snowman(-33333333));
+    CHECK_THROWS(snowman(-44444444));
 }
 
 TEST_CASE("Input number too big"){
+    CHECK_THROWS(snowman(232142735));
     CHECK_THROWS(snowman(232142735));
     CHECK_THROWS(snowman(111111111));
     CHECK_THROWS(snowman(123412341));
     CHECK_THROWS(snowman(444444444));
 }
 
-TEST_CASE("Good snowman code") {
-    CHECK(snowman(11114411) == string("       \n _===_ \n (.,.) \n ( : ) \n ( : ) "));
-    CHECK(snowman(33232124) == string("   _   \n  /_\\  \n\\(o_O) \n (] [)>\n (   ) "));
-    CHECK(snowman(12222212) == string("       \n _===_ \n\\(o.o)/\n ( : ) \n (\" \") "));
-    CHECK(snowman(32443333) == string("   _   \n  /_\\  \n (-.-) \n/(> <)\\\n (___) "));
-    CHECK(snowman(44444432) == string("  ___  \n (_*_) \n (- -) \n (> <) \n (\" \") "));
-    CHECK(snowman(44242123) == string("  ___  \n (_*_) \n\\(o -) \n (] [)>\n (___) "));
-    CHECK(snowman(41341144) == string("  ___  \n (_*_) \n (O,-) \n<(   )>\n (   ) "));
-    CHECK(snowman(11111111) == string("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
-    CHECK(snowman(22222222) == string("  ___  \n ..... \n\\(o.o)/\n (] [) \n (\" \") "));
-    CHECK(snowman(33333333) == string("   _   \n  /_\\  \n (O_O) \n/(> <)\\\n (___) "));
-    CHECK(snowman(44444444) == string("  ___  \n (_*_) \n (- -) \n (   ) \n (   ) "));
+TEST_CASE("Testing the head of a snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(21111111)) == nospaces("  ___  \n ..... \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(31111111)) == nospaces("   _   \n  /_\\  \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(41111111)) == nospaces("  ___  \n (_*_) \n (.,.) \n<( : )>\n ( : ) "));
 }
 
-TEST_CASE("bad snowman code") {
-    CHECK(snowman(11114411) != string(" _===_ \n (.,.) \n ( : ) \n ( : ) "));
-    CHECK(snowman(33232124) != string("   _   \n  /_\\  \n\\(0_O) \n (] [)>\n (   ) "));
-    CHECK(snowman(12222212) != string("       \n _===_\n\\(o.o)/\n ( : ) \n (\" \") "));
-    CHECK(snowman(32443333) != string("   _   \n  /_\\  \n (-.-) \n/(> <)\\ \n (___) "));
-    CHECK(snowman(44444432) != string("  ___  \n (_*_) \n (- -) \n (> <) \n ( \") "));
-    CHECK(snowman(44242123) != string("  ___ \n (_*_) \n\\(o -) \n (] [)>\n (___) "));
-    CHECK(snowman(41341144) != string("  ___  \n (_*_) \n (O, -) \n<(  )>\n (   ) "));
-    CHECK(snowman(11111111) != string("      \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
-    CHECK(snowman(22222222) != string("  ___  \n .... \n\\(o.o)/\n (] [) \n (\" \") "));
-    CHECK(snowman(33333333) != string("   _   \n  /_\\  \n (O_O) \n/(> <)\\\n (___)"));
-    CHECK(snowman(44444444) != string("  ___  \n (_*_) \n (- -) \n (  ) \n (   ) "));
+TEST_CASE("Testing the nose of a snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(12111111)) == nospaces("       \n _===_ \n (...) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(13111111)) == nospaces("       \n _===_ \n (._.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(14111111)) == nospaces("       \n _===_ \n (. .) \n<( : )>\n ( : ) "));
 }
 
+TEST_CASE("Testing the left eye of a snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11211111)) == nospaces("       \n _===_ \n (o,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11311111)) == nospaces("       \n _===_ \n (O,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11411111)) == nospaces("       \n _===_ \n (-,.) \n<( : )>\n ( : ) "));
+}
+TEST_CASE("Testing the right eye of a snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11121111)) == nospaces("       \n _===_ \n (.,o) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11131111)) == nospaces("       \n _===_ \n (.,O) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11141111)) == nospaces("       \n _===_ \n (.,-) \n<( : )>\n ( : ) "));
+}
+TEST_CASE("Testing the left arm of a snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11112111)) == nospaces("       \n _===_ \n\\(.,.) \n( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11113111)) == nospaces("       \n _===_ \n (.,.) \n/( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11114111)) == nospaces("       \n _===_ \n (.,.) \n ( : )>\n ( : ) "));
+}
+TEST_CASE("Testing the right arm of a snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11111211)) == nospaces("       \n _===_ \n (.,.)/\n<( : ) \n ( : ) "));
+    CHECK(nospaces(snowman(11111311)) == nospaces("       \n _===_ \n (.,.) \n<( : )\\\n ( : ) "));
+    CHECK(nospaces(snowman(11111411)) == nospaces("       \n _===_ \n (.,.) \n<( : ) \n ( : ) "));
+}
+TEST_CASE("Testing the torso of a snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11111121)) == nospaces("       \n _===_ \n (.,.) \n<(] [)>\n ( : ) "));
+    CHECK(nospaces(snowman(11111131)) == nospaces("       \n _===_ \n (.,.) \n<(> <)>\n ( : ) "));
+    CHECK(nospaces(snowman(11111141)) == nospaces("       \n _===_ \n (.,.) \n<(   )>\n ( : ) "));
+}
 
-// TEST_CASE("Testing the number of options to compbine snowmen:"){
-//     vector<string> snowmen;
-//     for(int i=11111111; i<=44444444; i++){
-//         try
-//         {
-//             snowmen.push_back(snowman(i));
-//         }
-//         catch(const std::exception& e)
-//         {
-//         }
-//     }
-//     CHECK_EQ(snowmen.size(), 4*4*4*4*4*4*4*4);
-// }
+TEST_CASE("Testing the base of snowman") {
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11111112)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n (\" \") "));
+    CHECK(nospaces(snowman(11111113)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n (___) "));
+    CHECK(nospaces(snowman(11111114)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n (   ) "));
+}
+
+TEST_CASE("Some random good snowman code") {
+    CHECK(nospaces(snowman(11114411)) == nospaces("       \n _===_ \n (.,.) \n ( : ) \n ( : ) "));
+    CHECK(nospaces(snowman(33232124)) == nospaces("   _   \n  /_\\  \n\\(o_O) \n (] [)>\n (   ) "));
+    CHECK(nospaces(snowman(12222212)) == nospaces("       \n _===_ \n\\(o.o)/\n ( : ) \n (\" \") "));
+    CHECK(nospaces(snowman(32443333)) == nospaces("   _   \n  /_\\  \n (-.-) \n/(> <)\\\n (___) "));
+    CHECK(nospaces(snowman(44444432)) == nospaces("  ___  \n (_*_) \n (- -) \n (> <) \n (\" \") "));
+    CHECK(nospaces(snowman(44242123)) == nospaces("  ___  \n (_*_) \n\\(o -) \n (] [)>\n (___) "));
+    CHECK(nospaces(snowman(41341144)) == nospaces("  ___  \n (_*_) \n (O,-) \n<(   )>\n (   ) "));
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(22222222)) == nospaces("  ___  \n ..... \n\\(o.o)/\n (] [) \n (\" \") "));
+    CHECK(nospaces(snowman(33333333)) == nospaces("   _   \n  /_\\  \n (O_O) \n/(> <)\\\n (___) "));
+    CHECK(nospaces(snowman(44444444)) == nospaces("  ___  \n (_*_) \n (- -) \n (   ) \n (   ) "));
+}
+
+TEST_CASE("some random bad snowman code") {
+    CHECK(nospaces(snowman(11114411)) != nospaces(" _===_ \n (.,.) \n ( : ) \n (] [) "));
+    CHECK(nospaces(snowman(33232124)) != nospaces("   _   \n  /_\\  \n\\(0_O) \n (] [)>\n (   ) "));
+    CHECK(nospaces(snowman(12222212)) != nospaces("       \n _===_\n\\(o.o)/\n (] [) \n (\" \") "));
+    CHECK(nospaces(snowman(32443333)) != nospaces("   _   \n  /_\\  \n (o.-) \n/(> <)\\ \n (___) "));
+    CHECK(nospaces(snowman(44444432)) != nospaces("  ___  \n (_*_) \n (- -) \n (> <) \n ( \") "));
+    CHECK(nospaces(snowman(44242123)) != nospaces("  ___ \n (_*_) \n\\(o -) \n (] [)>\n (   ) "));
+    CHECK(nospaces(snowman(41341144)) != nospaces("  ___  \n (_*_) \n (o, -) \n<(  )>\n (   ) "));
+    CHECK(nospaces(snowman(11111111)) != nospaces("      \n _===_ \n (.,-) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(22222222)) != nospaces("  ___  \n .... \n\\(o.o)/\n (] [) \n (\" \") "));
+    CHECK(nospaces(snowman(33333333)) != nospaces("   _   \n  /_\\  \n (o_O) \n/(> <)\\\n (___)"));
+    CHECK(nospaces(snowman(44444444)) != nospaces("  ___  \n (_*_) \n (o -) \n (  ) \n (___) "));
+}

@@ -1,15 +1,12 @@
 #!make -f
 
-CXX=g++
+CXX=clang++-9 
 CXXFLAGS=-std=c++2a -Werror
 
 HEADERS=snowman.hpp
 OBJECTS=snowman.o
 
 run: demo
-	./$^
-
-runTest: test
 	./$^
 
 demo: Demo.o $(OBJECTS)
