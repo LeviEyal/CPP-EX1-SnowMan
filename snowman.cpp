@@ -1,3 +1,16 @@
+/************************************************************************************
+ * C++ course, Ariel university.
+ * Assignment number 1.
+ * 
+ * Generating 'snowman' from an 8-digits integer.
+ * For the full documentation visit:
+ * https://codegolf.stackexchange.com/questions/49671/do-you-want-to-code-a-snowman
+ *
+ * AUTHORS: Eyal Levi
+ * https://github.com/LeviEyal
+ * Date: 2021-03
+ ***********************************************************************************/
+
 #include <iostream>
 #include <vector>
 #include <stdexcept>
