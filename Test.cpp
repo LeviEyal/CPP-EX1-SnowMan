@@ -27,6 +27,10 @@ string nospaces(string input) {
 	return input;
 }
 
+/**
+ * This Test Case will assert that an input number will NOT be valid
+ * if it has some digit not in the range 1-4.
+ */
 TEST_CASE("number digits out of range"){
     CHECK_THROWS(snowman(51111111));
     CHECK_THROWS(snowman(15111111));
@@ -45,6 +49,10 @@ TEST_CASE("number digits out of range"){
     CHECK_THROWS(snowman(10111111));
 }
 
+/**
+ * This Test Case will assert that an input number will NOT be valid
+ * if it has less than 8 digits.
+ */
 TEST_CASE("Input number too small"){
     CHECK_THROWS(snowman(1));
     CHECK_THROWS(snowman(11));
@@ -58,13 +66,10 @@ TEST_CASE("Input number too small"){
     CHECK_THROWS(snowman(1234));
 }
 
-TEST_CASE("Input negative number"){
-    CHECK_THROWS(snowman(-11111111));
-    CHECK_THROWS(snowman(-22222222));
-    CHECK_THROWS(snowman(-33333333));
-    CHECK_THROWS(snowman(-44444444));
-}
-
+/**
+ * This Test Case will assert that an input number will NOT be valid
+ * if it has more than 8 digits.
+ */
 TEST_CASE("Input number too big"){
     CHECK_THROWS(snowman(232142735));
     CHECK_THROWS(snowman(232142735));
@@ -73,6 +78,21 @@ TEST_CASE("Input number too big"){
     CHECK_THROWS(snowman(444444444));
 }
 
+/**
+ * This Test Case will assert that an input number will not be valid
+ * if it is a negative number.
+ */
+TEST_CASE("Input negative number"){
+    CHECK_THROWS(snowman(-11111111));
+    CHECK_THROWS(snowman(-22222222));
+    CHECK_THROWS(snowman(-33333333));
+    CHECK_THROWS(snowman(-44444444));
+}
+
+/**
+ * This Test Case will assert that the function snowman picks the head properly.
+ * It will test only the head options - the first digit in the number/
+ */
 TEST_CASE("Testing the head of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(21111111)) == nospaces("  ___  \n ..... \n (.,.) \n<( : )>\n ( : ) "));
@@ -80,6 +100,10 @@ TEST_CASE("Testing the head of a snowman") {
     CHECK(nospaces(snowman(41111111)) == nospaces("  ___  \n (_*_) \n (.,.) \n<( : )>\n ( : ) "));
 }
 
+/**
+ * This Test Case will assert that the function snowman picks the nose properly.
+ * It will test only the nose options - the second digit in the number/
+ */
 TEST_CASE("Testing the nose of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(12111111)) == nospaces("       \n _===_ \n (...) \n<( : )>\n ( : ) "));
@@ -87,30 +111,54 @@ TEST_CASE("Testing the nose of a snowman") {
     CHECK(nospaces(snowman(14111111)) == nospaces("       \n _===_ \n (. .) \n<( : )>\n ( : ) "));
 }
 
+/**
+ * This Test Case will assert that the function snowman picks the left eye properly.
+ * It will test only the left eye options - the third digit in the number/
+ */
 TEST_CASE("Testing the left eye of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11211111)) == nospaces("       \n _===_ \n (o,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11311111)) == nospaces("       \n _===_ \n (O,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11411111)) == nospaces("       \n _===_ \n (-,.) \n<( : )>\n ( : ) "));
 }
+
+/**
+ * This Test Case will assert that the function snowman picks the right eye properly.
+ * It will test only the right eye options - the fourth digit in the number/
+ */
 TEST_CASE("Testing the right eye of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11121111)) == nospaces("       \n _===_ \n (.,o) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11131111)) == nospaces("       \n _===_ \n (.,O) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11141111)) == nospaces("       \n _===_ \n (.,-) \n<( : )>\n ( : ) "));
 }
+
+/**
+ * This Test Case will assert that the function snowman picks the left arm properly.
+ * It will test only the left arm options - the fifth digit in the number/
+ */
 TEST_CASE("Testing the left arm of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11112111)) == nospaces("       \n _===_ \n\\(.,.) \n( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11113111)) == nospaces("       \n _===_ \n (.,.) \n/( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11114111)) == nospaces("       \n _===_ \n (.,.) \n ( : )>\n ( : ) "));
 }
+
+/**
+ * This Test Case will assert that the function snowman picks the right arm properly.
+ * It will test only the right arm options - the sixth digit in the number/
+ */
 TEST_CASE("Testing the right arm of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11111211)) == nospaces("       \n _===_ \n (.,.)/\n<( : ) \n ( : ) "));
     CHECK(nospaces(snowman(11111311)) == nospaces("       \n _===_ \n (.,.) \n<( : )\\\n ( : ) "));
     CHECK(nospaces(snowman(11111411)) == nospaces("       \n _===_ \n (.,.) \n<( : ) \n ( : ) "));
 }
+
+/**
+ * This Test Case will assert that the function snowman picks the torso properly.
+ * It will test only the torso options - the seventh digit in the number/
+ */
 TEST_CASE("Testing the torso of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11111121)) == nospaces("       \n _===_ \n (.,.) \n<(] [)>\n ( : ) "));
@@ -118,6 +166,10 @@ TEST_CASE("Testing the torso of a snowman") {
     CHECK(nospaces(snowman(11111141)) == nospaces("       \n _===_ \n (.,.) \n<(   )>\n ( : ) "));
 }
 
+/**
+ * This Test Case will assert that the function snowman picks the base properly.
+ * It will test only the base options - the eighth digit in the number/
+ */
 TEST_CASE("Testing the base of snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(11111112)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n (\" \") "));
