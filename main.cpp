@@ -18,6 +18,13 @@ using namespace std;
 const string red_line = "\e[1;31m";
 const string colors[] {"\e[1;92m", "\e[1;93m", "\e[1;94m", "\e[1;95m", "\e[1;96m"};
 
+/**
+ * @brief Generates a random valid snowman
+ *        by generating an 8-digit number with each of its
+ *        digits ranged from 1 to 4 and handle it the snowman() function.
+ * 
+ * @return the string representation of the random snowman
+ */
 string RandomSnowman(){
     int number = 0;
     for (int i = 0; i < 8; i++) {
@@ -26,6 +33,7 @@ string RandomSnowman(){
     }
     cout << endl << " Generating random snowman...\n   Snowman(" << number << ") is:" << endl;
     string s = ariel::snowman(number);
+    /* Adding tabs on each line of the snowman */
     s.insert(0, 1, '\t');
     s.insert(9, 1, '\t');
     s.insert(18, 1, '\t');
@@ -34,6 +42,9 @@ string RandomSnowman(){
     return s;
 }
 
+/**
+ * @brief Generating random snowmen with different colors to the screen.
+ */
 int main() {
     srand((unsigned)time(0));
     for(int i=0; true; i++){

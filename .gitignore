@@ -1,3 +1,6 @@
 *.o
 demo
 test
+
+TestExample.cpp
+.gitignore
