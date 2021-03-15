@@ -95,6 +95,7 @@ TEST_CASE("Input negative number"){
  */
 TEST_CASE("Testing the head of a snowman") {
     CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (.,.) \n<( : )>\n ( : ) "));
+    CHECK(nospaces(snowman(11111111)) == nospaces("       \n _===_ \n (. , .) \n< ( : )>\n (  : ) "));
     CHECK(nospaces(snowman(21111111)) == nospaces("  ___  \n ..... \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(31111111)) == nospaces("   _   \n  /_\\  \n (.,.) \n<( : )>\n ( : ) "));
     CHECK(nospaces(snowman(41111111)) == nospaces("  ___  \n (_*_) \n (.,.) \n<( : )>\n ( : ) "));
@@ -204,3 +205,16 @@ TEST_CASE("some random bad snowman code") {
     CHECK(nospaces(snowman(33333333)) != nospaces("   _   \n  /_\\  \n (o_O) \n/(> <)\\\n (___)"));
     CHECK(nospaces(snowman(44444444)) != nospaces("  ___  \n (_*_) \n (o -) \n (  ) \n (___) "));
 }
+
+
+
+/*
+    _   
+  / _\  
+\(o_ O  ) 
+ ( ] [)>
+ (   ) 
+
+
+
+*/

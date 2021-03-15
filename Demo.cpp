@@ -26,7 +26,7 @@ _===_
  (   )
 	*/
 	try {
-		cout << ariel::snowman(5) << endl;   // Exception - not a valid code
+		cout << ariel::snowman(55555555) << endl;   // Exception - not a valid code
 	} catch (exception& ex) {
 	 	cout << "   caught exception: " << ex.what() << endl;  // should print "Invalid code '5'"
 	}
