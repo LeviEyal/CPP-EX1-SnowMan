@@ -33,10 +33,10 @@ const vector<string> T = {" : ", "] [", "> <", "   "};
 const vector<string> B = {" : ", "\" \"", "___", "   "};
 
 /* 
-converting char '1'-'5' to its integer representation
-after that it decrease 1 from the number to fit the arrays range 0-4.
-Example: input: '1', output: 0 etc. 
-*/
+ * converting char '1'-'5' to its integer representation
+ * after that it decrease 1 from the number to fit the arrays range 0-4.
+ * Example: input: '1', output: 0 etc. 
+ */
 int toDigit(char c){
     return (c-'0')-1; 
 }
@@ -46,8 +46,6 @@ namespace ariel{
      * @brief The function gets a 8-digits number with each digit range from 1 to 4.
      *        It generates a string representation of a so-called 'snowman',
      *        with each digit of the input number represnt different part of the snowman.
-     *        For the full documentation visit:
-     *        https://codegolf.stackexchange.com/questions/49671/do-you-want-to-code-a-snowman
      * 
      * @param num a 8-digits integer with each digit range from 1 to 4
      * @return a string representation of the correspond snowman
